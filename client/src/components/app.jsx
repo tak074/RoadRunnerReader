@@ -53,10 +53,8 @@ class App extends React.Component {
   componentDidMount() {
     let storyArr = story.split(' ');
     console.log('mounted', storyArr);
-    this.setState({story: storyArr})
-    .then(() => {
-      console.log('after', this.state.story);
-    });
+    this.setState({story: storyArr});
+    console.log('after', this.state.story);
     this.changeText();
   }
 
