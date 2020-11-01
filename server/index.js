@@ -1,6 +1,6 @@
 const express = require('express');
 let app = express();
-const port = 2000;
+const port = 2001;
 
 app.use(express.static(__dirname + '/../client/dist'));
 // app.use(express.urlencoded({extended:true}));
