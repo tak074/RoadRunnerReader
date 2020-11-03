@@ -22,6 +22,14 @@ module.exports = {
             presets: ['babel-preset-env', 'babel-preset-react']
           }
         }
+      },
+      {
+        test: /\.(jpg|png)$/,
+        include : SRC_DIR,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'url-loader',
+        },
       }
     ]
   }

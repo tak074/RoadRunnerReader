@@ -1,10 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
+import style from 'styled-components';
 
-const Header = styled.h1`
+const Header = style.h1`
   font-size: 2.5em;
   text-align: center;
-  color: white;
   padding-top: 1%;
 `;
 
