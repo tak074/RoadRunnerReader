@@ -19,12 +19,14 @@ const Speed = style.div`
   display: inline;
   text-align: center;
   color: #EEEEEE;
+  margin-left: 1em;
 `;
 const FullText = style.div`
   display: inline;
   text-align: center;
-  margin-left: 2em;
+  margin-left: 1em;
   color: #EEEEEE;
+  font-size: 2em;
 `;
 
 
@@ -37,7 +39,7 @@ const Buttons = ({play, time, speed, ending, handleReset, handlePlay, handleSpee
       <Button>x{(time/speed).toFixed(2)}</Button>
       <Button onClick={() => {handleSpeed(38)}}>+</Button>
     </Speed>
-    <FullText onClick={() => {handleFullText()}}>FullText</FullText>
+    <FullText onClick={() => {handleFullText()}}>Full Text</FullText>
   </Container>
 )
 

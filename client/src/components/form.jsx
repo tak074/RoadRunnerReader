@@ -47,7 +47,7 @@ const Form = ({handleSubmit}) => (
       - <b>Left</b> / <b>Right</b> : Switch current word<br></br>
       - <b>Spacebar</b> : Play/Pause<br></br>
       <br></br>
-      Click <b>'FullText'</b> to open/close a view of the entire text.<br></br>
+      Click <b>'Full Text'</b> to open/close a view of the entire text.<br></br>
       <br></br>
       Input the text you'd like to read then press <b>'Start'</b>!<br></br>
       <br></br>
