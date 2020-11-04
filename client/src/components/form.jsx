@@ -4,6 +4,7 @@ import style from 'styled-components';
 const Text = style.textarea`
   background-color: #EEEEEE;
   display: block;
+  font-size: 1em;
   height: 70%;
   margin-left: auto;
   margin-right: auto;
@@ -11,7 +12,7 @@ const Text = style.textarea`
   width: 40%;
 
   ::placeholder {
-    font-size: 3em;
+    font-size: 2em;
   }
 `;
 
@@ -30,6 +31,7 @@ const Intro = style.p`
   left: 3%;
   top: 20%;
   width: 20%;
+  min-width: 450px;
 `;
 
 const Form = ({handleSubmit}) => (
