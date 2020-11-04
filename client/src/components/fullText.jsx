@@ -2,7 +2,9 @@ import React from 'react';
 import style from 'styled-components';
 
 const FullStory = style.div`
+  height: 30%;
   max-height: 10em;
+  width: 30%;
   max-width: 25em;
   overflow: auto;
   font-size: 2em;

@@ -92,13 +92,6 @@ class App extends React.Component {
     }
   }
 
-  handlePlay() {
-    console.log('hanldePlay');
-    if (!this.state.ending) {
-      this.setState({play: this.state.play === false? true: false, processing: false});
-    }
-  }
-
   handleKey(e) {
     let keyCode = e.keyCode;
     console.log('pressed ', e.keyCode);
@@ -116,6 +109,15 @@ class App extends React.Component {
     // changing speed
     if (keyCode === 38 || keyCode === 40) {
       this.handleSpeed(keyCode);
+    }
+  }
+
+  // play and pause
+  handlePlay() {
+    if (!this.state.ending) {
+      this.setState({play: this.state.play === false? true: false, processing: false});
+    } else {
+      this.handleReplay();
     }
   }
 
@@ -173,28 +175,45 @@ class App extends React.Component {
   }
 
   handleSubmit(e) {
-    let text = e.target.parentElement.children[0].value;
+    let text = e.target.parentElement.children[1].value;
     let textArr = text.split(/ |\n/);
     let container= [textArr[0]];
-    this.setState({
-      story: textArr,
-      front: false,
-      speed: this.state.time,
-      text: container,
-      processing: false
-    });
+
+    if (text.length === 0) {
+      alert('Cannot submit empty text.');
+    } else {
+
+      this.setState({
+        story: textArr,
+        front: false,
+        speed: this.state.time,
+        text: container,
+        processing: false
+      });
+    }
   }
 
   handleReset() {
     this.setState({
-      text:[''],
-      story:[],
       count: 0,
       ending: false,
-      speed: this.state.time,
-      play: false,
       front:true,
-      processing: false
+      story:[],
+      play: false,
+      processing: false,
+      speed: this.state.time,
+      text:['']
+    });
+  }
+
+  handleReplay() {
+    this.setState({
+      count: 0,
+      ending: false,
+      play: false,
+      processing: false,
+      speed: this.state.time,
+      text:[this.state.story[0]]
     });
   }
 
@@ -219,6 +238,7 @@ class App extends React.Component {
             play={this.state.play}
             speed={this.state.speed}
             time={this.state.time}
+            ending={this.state.ending}
             handlePlay={this.handlePlay.bind(this)}
             handleReset={this.handleReset.bind(this)}
             handleSpeed={this.handleSpeed.bind(this)}
