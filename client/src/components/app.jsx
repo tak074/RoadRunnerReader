@@ -6,6 +6,7 @@ import Title from './title.jsx';
 import Read from './read.jsx';
 import Buttons from './buttons.jsx';
 import Form from './form.jsx';
+import FullText from './fullText.jsx';
 
 const Front = style.div`
   height: 100%;
@@ -18,7 +19,7 @@ const Display = style.div`
   height: 100%;
   width: 100%;
   background-color: black;
-  color: white;
+  color: #EEEEEE;
 `;
 
 class App extends React.Component {
@@ -32,7 +33,9 @@ class App extends React.Component {
       time: 150,
       speed: 150,
       play: false,
-      front: true
+      front: true,
+      fullText: false,
+      processing: false
     }
   }
 
@@ -44,12 +47,18 @@ class App extends React.Component {
 
     // push one word into container
     container.push(story[count]);
-
+    console.log('container', container);
     if (story[count + 1] === undefined) {
       console.log('ending');
       let changeTextLast = setTimeout (
         function() {
-          this.setState({ text: container, ending: true, play: false});
+          this.setState({
+            text: container,
+            ending: true,
+            play: false,
+            count: this.state.count + 1,
+            processing: false
+          });
         }.bind(this),
         speed
       );
@@ -62,7 +71,11 @@ class App extends React.Component {
       }
       let changeText = setTimeout (
         function() {
-          this.setState({text: container, count: this.state.count + 1});
+          this.setState({
+            text: container,
+            count: this.state.count + 1,
+            processing: false
+          });
         }.bind(this),
         timer
       );
@@ -70,9 +83,11 @@ class App extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.state.play) {
-      if (!this.state.ending) {
-        this.changeText();
+    if (!this.state.processing) {
+      if (this.state.play) {
+        if (!this.state.ending) {
+          this.changeText();
+        }
       }
     }
   }
@@ -80,7 +95,7 @@ class App extends React.Component {
   handlePlay() {
     console.log('hanldePlay');
     if (!this.state.ending) {
-      this.setState({play: this.state.play === false? true: false});
+      this.setState({play: this.state.play === false? true: false, processing: false});
     }
   }
 
@@ -109,14 +124,22 @@ class App extends React.Component {
     if (input === 38) {
       console.log('speeding up');
       if (this.state.speed >= 50) {
-        this.setState({speed: this.state.speed / 1.1, play:false});
+        this.setState({
+          speed: this.state.speed / 1.1,
+          play:false,
+          processing: false
+        });
       }
     }
     //slowing down
     if (input === 40) {
       console.log('slowing down');
       if (this.state.speed <= 5000) {
-        this.setState({speed: this.state.speed * 1.1, play:false});
+        this.setState({
+          speed: this.state.speed * 1.1,
+          play:false,
+          processing: false
+        });
       }
     }
   }
@@ -131,7 +154,8 @@ class App extends React.Component {
         this.setState({
           count: this.state.count - 1,
           play: false,
-          text: temp
+          text: temp,
+          processing: false
         });
       }
     }
@@ -142,22 +166,23 @@ class App extends React.Component {
       this.setState({
         count: this.state.count + 1,
         play: false,
-        text: temp
+        text: temp,
+        processing: false
       });
     }
   }
 
   handleSubmit(e) {
     let text = e.target.parentElement.children[0].value;
-    // text.replace('.', '.\n');
     let textArr = text.split(/ |\n/);
-    console.log('submitted', textArr);
+    let container= [textArr[0]];
     this.setState({
       story: textArr,
       front: false,
-      speed: this.state.time
+      speed: this.state.time,
+      text: container,
+      processing: false
     });
-
   }
 
   handleReset() {
@@ -168,8 +193,16 @@ class App extends React.Component {
       ending: false,
       speed: this.state.time,
       play: false,
-      front:true
+      front:true,
+      processing: false
     });
+  }
+
+  handleFullText() {
+    this.setState({
+      fullText: this.state.fullText? false: true,
+      processing: true
+    })
   }
 
   render() {
@@ -181,13 +214,15 @@ class App extends React.Component {
             <Read text={this.state.text}/>
           </div>
           <div>
+            <FullText story={this.state.story} fullText={this.state.fullText} count={this.state.count}/>
             <Buttons
             play={this.state.play}
+            speed={this.state.speed}
+            time={this.state.time}
             handlePlay={this.handlePlay.bind(this)}
             handleReset={this.handleReset.bind(this)}
             handleSpeed={this.handleSpeed.bind(this)}
-            speed={this.state.speed}
-            time={this.state.time}
+            handleFullText={this.handleFullText.bind(this)}
             />
           </div>
         </Display>

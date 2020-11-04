@@ -10,6 +10,7 @@ const Text = style.textarea`
   margin-left: auto;
   margin-right: auto;
   margin-top: 3%;
+  background-color: #EEEEEE
 `;
 
 const Button = style.img`
