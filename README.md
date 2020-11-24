@@ -1,5 +1,5 @@
 # RoadRunnerReader
-Displays entire text one word at a time at a fast interval to boost one's reading speed.
+Displays a list of texts one word at a time at a fast interval to boost one's reading speed.
 
 ### Summary
 This product is for those who wishes to uptain knowledge at a faster rate. Slower readers have a disadvantage when it comes to learning through reading, and this app aims to abridge such a disadvantage. User can upload a text of their choice, and have it displayed to them at a rapid pace that is still comprehensible. The user can adjust the speed of the display and as well as pause/start.
